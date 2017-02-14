@@ -9,6 +9,7 @@ Project written as test task.
 ## Installation
 
 You can run web application with running start.bat or do it manually from command promt mvnw spring-boot:run
+(JAVA_HOME env variable need to be installed properly)  
  
  access localhost:8080 from your browser.
 
