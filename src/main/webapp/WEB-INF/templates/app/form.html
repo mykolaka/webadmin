@@ -1,0 +1,49 @@
+<div class="row">
+	<input type="hidden" th:field="*{id}" th:value="${app.id}"/>
+
+	<div class="row">
+		<div th:class="${#fields.hasErrors('name')} ? |col-xs-12 form-group has-error| : |col-xs-12 form-group|">
+			<label th:text="#{name}">Application Name</label>
+			<input type="text" th:field="*{name}" class="form-control" th:value="*{name}"
+				   th:disabled="${readOnly}"/>
+			<span class="help-block" th:each="err : ${#fields.errors('name')}" th:text="${err}"/>
+		</div>
+	</div>
+
+	<div class="row">
+		<div th:class="${#fields.hasErrors('type')} ? |col-xs-12 form-group has-error| : |col-xs-12 form-group|">
+			<label th:text="#{type}">Type</label>
+			<select th:disabled="${readOnly}" class="form-control" th:field="*{type}">
+				<option value="" th:text="#{common.select.prompt}"/>
+				<option th:each="type : ${T(com.testcode.webadmin.persistence.domain.AppType).values()}"
+						th:value="${type.name()}" th:text="${type.name()}"/>
+			</select>
+			<span class="help-block" th:each="err : ${#fields.errors('type')}" th:text="${err}"/>
+		</div>
+	</div>
+
+	<div class="row">
+		<div th:class="${#fields.hasErrors('contentTypes')} ? |col-xs-12 form-group has-error| : |col-xs-12 form-group|">
+			<label th:text="#{contentTypes}">Content types</label>
+			<select th:disabled="${readOnly}" class="form-control" th:field="*{contentTypes}" multiple="multiple">
+				<option value="" th:text="#{common.select.prompt}"/>
+				<option th:each="contentType : ${T(com.testcode.webadmin.persistence.domain.ContentType).values()}"
+						th:value="${contentType.name()}" th:text="${contentType.name()}"/>
+			</select>
+			<span class="help-block" th:each="err : ${#fields.errors('contentTypes')}" th:text="${err}"/>
+		</div>
+	</div>
+
+	<div class="row">
+		<div th:class="${#fields.hasErrors('user')} ? |col-xs-12 form-group has-error| : |col-xs-12 form-group|">
+			<label th:text="#{user}">User</label>
+			<select th:disabled="${readOnly} or ${inEditMode} or ${isPublisher}" class="form-control" th:field="*{user}">
+				<option value="" th:text="#{common.select.prompt} "/>
+				<option th:each="avaiableUser : ${availableUsers}" th:value="${avaiableUser.id}" th:text="${avaiableUser.name}"/>
+			</select>
+			<span class="help-block" th:each="err : ${#fields.errors('user')}" th:text="${err}"/>
+		</div>
+	</div>
+</div>
+
+

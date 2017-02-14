@@ -1,0 +1,55 @@
+<div class="row">
+	<input type="hidden" th:field="*{id}" th:value="${user.id}"/>
+
+	<div class="row">
+		<div th:class="${#fields.hasErrors('name')} ? |col-xs-12 form-group has-error| : |col-xs-12 form-group|">
+			<label th:text="#{name}">Full Name</label>
+			<input type="text" th:field="*{name}" class="form-control" th:value="*{name}"
+				   th:disabled="${readOnly}"/>
+			<span class="help-block" th:each="err : ${#fields.errors('name')}" th:text="${err}"/>
+		</div>
+	</div>
+
+	<div class="row">
+		<div th:class="${#fields.hasErrors('email')} ? |col-xs-12 form-group has-error| : |col-xs-12 form-group|">
+			<label th:text="#{email}">Email</label>
+			<input type="email" th:field="*{email}" class="form-control" th:value="*{email}"
+				   maxlength="255" th:disabled="${readOnly}"/>
+			<span class="help-block" th:each="err : ${#fields.errors('email')}" th:text="${err}"/>
+		</div>
+	</div>
+
+	<div class="row">
+		<div th:class="${#fields.hasErrors('role')} ? |col-xs-12 form-group has-error| : |col-xs-12 form-group|">
+			<label th:text="#{role}">Role</label>
+			<label th:if="${readOnly}" class="form-control" th:text="*{role.name()}" th:disabled="${readOnly}"/>
+			<select th:unless="${readOnly}" class="form-control" th:field="*{role}">
+				<option value="" th:text="#{common.select.prompt}"/>
+				<option th:each="role : ${availableRoles}" th:value="${role.name()}" th:text="${role.name()}"/>
+			</select>
+			<span class="help-block" th:each="err : ${#fields.errors('role')}" th:text="${err}"/>
+		</div>
+
+	</div>
+
+	<div class="row">
+		<div th:class="${#fields.hasErrors('userName')} ? |col-xs-12 form-group has-error| : |col-xs-12 form-group|">
+			<label th:text="#{userName}">UserName</label>
+			<input type="text" th:field="*{userName}" class="form-control" th:value="*{userName}"
+				   th:disabled="${readOnly} or ${inEditMode}"/>
+			<span class="help-block" th:each="err : ${#fields.errors('userName')}" th:text="${err}"/>
+		</div>
+
+	</div>
+
+	<div class="row">
+		<div th:class="${#fields.hasErrors('password')} ? |col-xs-12 form-group has-error| : |col-xs-12 form-group|">
+			<label th:text="#{password}">Password</label>
+			<input type="password" name="password" class="form-control" th:value="*{password}"
+				   th:disabled="${readOnly}"/>
+			<span class="help-block" th:each="err : ${#fields.errors('password')}" th:text="${err}"/>
+		</div>
+	</div>
+</div>
+
+

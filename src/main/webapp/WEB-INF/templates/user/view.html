@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html layout:decorator="layouts/main"
+	  lang="en"
+	  xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+	<title th:text="#{user.view.title}"/>
+</head>
+
+<div layout:fragment="content">
+	<form id="userForm" role="form" th:object="${user}" method="post">
+		<div th:include="user/form" th:with="readOnly=${true}"/>
+	</form>
+
+	<div class="row">
+		<div class="pull-right">
+			<a class="btn btn-primary" th:href="@{/}" th:text="#{button.close}">Close</a>
+			<a th:if="${canBeEdited}" class="btn btn-primary" th:href="@{/user/edit/} + ${user.id}"
+			   th:text="#{button.edit.user}">Edit</a>
+			<a th:if="${canBeEdited}" class="btn btn-primary" th:href="@{/user/delete/} + ${user.id}"
+			   th:text="#{button.delete.user}">Delete</a>
+		</div>
+	</div>
+</div>
+</html>

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html layout:decorator="layouts/main"
+	  lang="en"
+	  xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+	<title>Home page</title>
+</head>
+<body>
+
+<div class="col-xs-12" layout:fragment="content">
+	<form th:action="@{/logout}" method="post">
+		<div class="row">
+			<div class="col-md-6">
+				<h4 th:inline="text" th:text="'You signed as ' + ${currentUser.name} +'!'"/>
+			</div>
+			<div class="col-md-6">
+				<button type="submit" class="btn btn-default btn-sm pull-right">Sign Out</button>
+			</div>
+		</div>
+	</form>
+	<div sec:authorize="hasRole('ROLE_ADMIN') || hasRole('ROLE_ADOPS') ">
+		<a class="btn btn-primary btn-sm" th:href="@{/user/create}" th:text="#{button.create.user}">Create User</a>
+		<table class="table table-striped">
+			<caption th:text="#{table.caption.users}"/>
+			<thead>
+			<tr>
+				<th th:text="#{user.name}">Full Name</th>
+				<th th:text="#{user.email}">Email</th>
+				<th th:text="#{user.role}">Role</th>
+				<th th:text="#{user.userName}">User Name</th>
+			</tr>
+			</thead>
+			<tbody>
+			<tr th:each="user : ${users}">
+				<td><a th:href="@{/user/view/} + ${user.id}" th:text="${user.name}">Full Name</a></td>
+				<th th:text="${user.email}">Email</th>
+				<th th:text="${user.role.name()}">Role</th>
+				<th th:text="${user.userName}">UserName</th>
+			</tr>
+			</tbody>
+		</table>
+	</div>
+
+	<div sec:authorize="hasRole('ROLE_PUBLISHER') || hasRole('ROLE_ADOPS') ">
+		<a class="btn btn-primary btn-sm" th:href="@{/app/create}" th:text="#{button.create.app}">Create Application</a>
+		<table class="table table-striped">
+			<caption th:text="#{table.caption.applications}"/>
+			<thead>
+			<tr>
+				<th th:text="#{app.name}">Name</th>
+				<th th:text="#{app.type}">Type</th>
+				<th th:text="#{app.contentTypes}">Content types</th>
+				<th th:text="#{app.user}">User</th>
+			</tr>
+			</thead>
+			<tbody>
+			<tr th:each="app : ${apps}">
+				<td><a th:href="@{/app/view/} + ${app.id}" th:text="${app.name}">Name</a></td>
+				<th th:text="${app.type}">Type</th>
+				<th th:text="${app.contentTypes}">Content types</th>
+				<th th:text="${app.user.name}">User</th>
+			</tr>
+			</tbody>
+		</table>
+	</div>
+</div>
+</body>
+</html>

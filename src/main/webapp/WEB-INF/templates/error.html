@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html layout:decorator="layouts/main"
+	  lang="en"
+	  xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+	<title>Error page</title>
+</head>
+<body>
+<div class="col-xs-12" layout:fragment="content">
+	<div class="row">
+		<div>
+			<h1 th:inline="text" th:text="#{error.message}"/>
+			<a class="btn btn-link" th:href="@{/}" th:text="#{return.message}">Return to main page</a>
+		</div>
+	</div>
+</div>
+</body>
+</html>
